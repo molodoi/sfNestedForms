@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Post</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ post.name }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ post.city.name }}</td>
+            </tr>
+            <tr>
+                <th>Department</th>
+                <td> {{ post.city.department.name }}</td>
+            </tr>
+            <tr>
+                <th>Region</th>
+                <td>{{ post.city.department.region.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <a href="{{ path('post_index') }}" class="btn btn-secondary">Back to the list</a>
+    <a href="{{ path('post_edit', { 'id': post.id }) }}" class="btn btn-primary">Edit</a>
+    <hr />
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Delete" class="btn btn-danger">
+    {{ form_end(delete_form) }}
+
+{% endblock %}

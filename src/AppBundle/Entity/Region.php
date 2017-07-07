@@ -1,0 +1,147 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Region
+ *
+ * @ORM\Table(name="region")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
+ */
+class Region
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="code", type="string", length=100)
+     */
+    private $code;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Department", mappedBy="region")
+     */
+    private $departments;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Region
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param integer $code
+     *
+     * @return Region
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add department
+     *
+     * @param \AppBundle\Entity\Department $department
+     *
+     * @return Region
+     */
+    public function addDepartment(\AppBundle\Entity\Department $department)
+    {
+        $this->departments[] = $department;
+
+        return $this;
+    }
+
+    /**
+     * Remove department
+     *
+     * @param \AppBundle\Entity\Department $department
+     */
+    public function removeDepartment(\AppBundle\Entity\Department $department)
+    {
+        $this->departments->removeElement($department);
+    }
+
+    /**
+     * Get departments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartments()
+    {
+        return $this->departments;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+}
